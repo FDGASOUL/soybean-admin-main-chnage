@@ -45,6 +45,16 @@ export const fetchMissData = async (name: string) => {
   return data;
 };
 
+export const fetchRepeatData = async (name: string) => {
+  const data = await request.post('/getRepeatData', { name });
+  return data;
+};
+
+export const fixRepeatData = async (name: string) => {
+  const data = await request.post('/fixRepeatData', { name });
+  return data;
+};
+
 export const fetchCorrData = async (type: string, name: string) => {
   const data = await request.post('/correlation', { type, name });
   return data;
