@@ -668,12 +668,6 @@ async function getHeader() {
   });
 }
 
-// function echars(data){
-//   const alldata = data.allData;
-//   hotOptions.value.series[0].data = alldata;
-//   hotOptions.value.yAxis.data = data.header;
-// }
-
 async function handleUpdateValue1() {
   startLoading();
   const select = valueSelect1.value;
