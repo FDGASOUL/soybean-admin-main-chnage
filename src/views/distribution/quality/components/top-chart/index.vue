@@ -1,6 +1,6 @@
 <template>
   <n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
-    <n-grid-item span="0:24 640:24 1024:5">
+    <n-grid-item span="0:24 640:24 1024:5" style="height: 200px">
       <n-card title="数据集选择" :bordered="false" class="h-full rounded-16px shadow-sm">
         <n-select
           v-model:value="valueSelect"
@@ -8,6 +8,10 @@
           :consistent-menu-width="false"
           @update:value="handleUpdateValue"
         />
+      </n-card>
+      <div style="height: 20px"></div>
+      <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        {{ tableData.message }}
       </n-card>
     </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:5">
@@ -51,38 +55,21 @@
         <div ref="lineRef" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
-    <n-grid-item span="0:24 640:24 1024:24">
-      <n-card title="缺失值比例扇形图" :bordered="false" class="rounded-16px shadow-sm">
+    <n-grid-item span="0:24 640:24 1024:12">
+      <n-card title="数据缺失比例扇形图" :bordered="false" class="rounded-16px shadow-sm">
         <div ref="pieRef" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
-		<n-grid-item span="0:24 640:24 1024:24">
+    <n-grid-item span="0:24 640:24 1024:12">
+      <n-card title="列缺失比例扇形图" :bordered="false" class="rounded-16px shadow-sm">
+        <div ref="pieRef2" class="w-full h-360px"></div>
+      </n-card>
+    </n-grid-item>
+    <n-grid-item span="0:24 640:24 1024:24">
       <n-card title="行缺失分布" :bordered="false" class="h-full rounded-16px shadow-sm">
         <div ref="line1Ref" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
-    <!-- <n-grid-item span="0:24 640:24 1024:18">
-      <n-card title="缺失值热力图" :bordered="false" class="h-full rounded-16px shadow-sm">
-        <div ref="hotRef" class="w-full h-500px"></div>
-      </n-card>
-    </n-grid-item>
-    <n-grid-item span="0:24 640:24 1024:6">
-      <n-card title="热力图对照表" :bordered="false" class="h-full rounded-16px shadow-sm">
-        <n-tag type="success"> 单位：/200格数据 </n-tag>
-        <n-divider />
-        <p>缺失级别：0 <n-divider vertical />缺失值：0</p>
-        <p>缺失级别：1 <n-divider vertical />缺失值：1</p>
-        <p>缺失级别：2 <n-divider vertical />缺失值：2~5</p>
-        <p>缺失级别：3 <n-divider vertical />缺失值：6~10</p>
-        <p>缺失级别：4 <n-divider vertical />缺失值：10~20</p>
-        <p>缺失级别：5 <n-divider vertical />缺失值：20~40</p>
-        <p>缺失级别：6 <n-divider vertical />缺失值：40~60</p>
-        <p>缺失级别：7 <n-divider vertical />缺失值：60~70</p>
-        <p>缺失级别：8 <n-divider vertical />缺失值：70~80</p>
-        <p>缺失级别：9 <n-divider vertical />缺失值：80~90</p>
-        <p>缺失级别：10<n-divider vertical />缺失值：>90</p>
-      </n-card>
-    </n-grid-item> -->
   </n-grid>
 </template>
 
@@ -104,7 +91,8 @@ const tableData = reactive({
   row: 0,
   line: 0,
   avrow: 0,
-  avline: 0
+  avline: 0,
+  message: ''
 });
 
 const { loading, startLoading, endLoading } = useLoading(false);
@@ -119,7 +107,7 @@ const lineOptions = ref<ECOption>({
       type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
     }
   },
-	toolbox: {
+  toolbox: {
     feature: {
       saveAsImage: {}
     }
@@ -187,6 +175,53 @@ const pieOptions = ref<ECOption>({
   },
   series: [
     {
+      color: ['#5da8ff', '#EE6666', '#fedc69', '#26deca'],
+      name: '值分布',
+      type: 'pie',
+      radius: ['45%', '75%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 1
+      },
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: '12'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: []
+    }
+  ]
+}) as Ref<ECOption>;
+const { domRef: pieRef } = useEcharts(pieOptions);
+
+const pieOptions2 = ref<ECOption>({
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    bottom: '1%',
+    left: 'center',
+    itemStyle: {
+      borderWidth: 0
+    }
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  series: [
+    {
       color: ['#5da8ff', '#8e9dff', '#fedc69', '#26deca'],
       name: '缺失值',
       type: 'pie',
@@ -214,7 +249,7 @@ const pieOptions = ref<ECOption>({
     }
   ]
 }) as Ref<ECOption>;
-const { domRef: pieRef } = useEcharts(pieOptions);
+const { domRef: pieRef2 } = useEcharts(pieOptions2);
 
 const line1Options = ref<ECOption>({
   tooltip: {
@@ -251,60 +286,6 @@ const line1Options = ref<ECOption>({
 }) as Ref<ECOption>;
 const { domRef: line1Ref } = useEcharts(line1Options);
 
-const hotOptions = ref<ECOption>({
-  tooltip: {
-    position: 'top'
-  },
-  grid: {
-    height: '50%',
-    top: '10%'
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    data: [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400],
-    splitArea: {
-      show: true
-    }
-  },
-  yAxis: {
-    type: 'category',
-    data: [],
-    splitArea: {
-      show: true
-    }
-  },
-  visualMap: {
-    min: 0,
-    max: 10,
-    calculable: true,
-    orient: 'horizontal',
-    left: 'center',
-    bottom: '15%'
-  },
-  series: [
-    {
-      name: 'Punch Card',
-      type: 'heatmap',
-      data: [],
-      label: {
-        show: true
-      },
-      emphasis: {
-        itemStyle: {
-          shadowBlur: 15,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      }
-    }
-  ]
-}) as Ref<ECOption>;
-const { domRef: hotRef } = useEcharts(hotOptions);
-
 async function getMissData() {
   startLoading();
   const name = valueSelect.value;
@@ -312,7 +293,6 @@ async function getMissData() {
   echars1(data);
   echars2(data);
   echars3(data);
-  // echars4(data);
   let missNum = 0;
   let num = 0;
   let lenNum = 0;
@@ -328,12 +308,15 @@ async function getMissData() {
   for (let i = 0; i < data.name.length; i++) {
     num += data.sum[i];
   }
+  echars4(num, missNum);
   tableData.missPercent = (missNum / (num + missNum)*100).toFixed(2);
   tableData.missNum = missNum;
   tableData.row = data.row;
   tableData.line = lenNum;
   tableData.avline = (missNum / data.name.length).toFixed(2);
   tableData.avrow = (missNum / rowNum).toFixed(2);
+  tableData.message = data.missing_message;
+  endLoading();
 }
 
 function echars1(data){
@@ -358,7 +341,7 @@ function echars2(data) {
       j++;
     }
   }
-  pieOptions.value.series[0].data = nullsumData;
+  pieOptions2.value.series[0].data = nullsumData;
 }
 function echars3(data){
   const x = [];
@@ -369,11 +352,13 @@ function echars3(data){
   line1Options.value.series[0].data = data.rowData;
 }
 
-// function echars4(data){
-//   const hdata = data.hotData;
-// 	hotOptions.value.series[0].data=hdata;
-//   hotOptions.value.yAxis.data = data.name;
-// }
+function echars4(num, missNum){
+  const data = [
+    { value: num, name: '非缺失值' },
+    { value: missNum, name: '缺失值' }
+  ];
+  pieOptions.value.series[0].data = data;
+}
 
 async function getDataName() {
   startLoading();

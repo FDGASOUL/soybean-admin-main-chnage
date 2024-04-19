@@ -56,33 +56,11 @@
         <div ref="pieRef" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
-		<n-grid-item span="0:24 640:24 1024:24">
+    <n-grid-item span="0:24 640:24 1024:24">
       <n-card title="行缺失分布" :bordered="false" class="h-full rounded-16px shadow-sm">
         <div ref="line1Ref" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
-    <!-- <n-grid-item span="0:24 640:24 1024:18">
-      <n-card title="缺失值热力图" :bordered="false" class="h-full rounded-16px shadow-sm">
-        <div ref="hotRef" class="w-full h-500px"></div>
-      </n-card>
-    </n-grid-item>
-    <n-grid-item span="0:24 640:24 1024:6">
-      <n-card title="热力图对照表" :bordered="false" class="h-full rounded-16px shadow-sm">
-        <n-tag type="success"> 单位：/200格数据 </n-tag>
-        <n-divider />
-        <p>缺失级别：0 <n-divider vertical />缺失值：0</p>
-        <p>缺失级别：1 <n-divider vertical />缺失值：1</p>
-        <p>缺失级别：2 <n-divider vertical />缺失值：2~5</p>
-        <p>缺失级别：3 <n-divider vertical />缺失值：6~10</p>
-        <p>缺失级别：4 <n-divider vertical />缺失值：10~20</p>
-        <p>缺失级别：5 <n-divider vertical />缺失值：20~40</p>
-        <p>缺失级别：6 <n-divider vertical />缺失值：40~60</p>
-        <p>缺失级别：7 <n-divider vertical />缺失值：60~70</p>
-        <p>缺失级别：8 <n-divider vertical />缺失值：70~80</p>
-        <p>缺失级别：9 <n-divider vertical />缺失值：80~90</p>
-        <p>缺失级别：10<n-divider vertical />缺失值：>90</p>
-      </n-card>
-    </n-grid-item> -->
   </n-grid>
 </template>
 
@@ -368,12 +346,6 @@ function echars3(data){
   line1Options.value.xAxis.data = x;
   line1Options.value.series[0].data = data.rowData;
 }
-
-// function echars4(data){
-//   const hdata = data.hotData;
-// 	hotOptions.value.series[0].data=hdata;
-//   hotOptions.value.yAxis.data = data.name;
-// }
 
 async function getDataName() {
   startLoading();

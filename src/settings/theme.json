@@ -3,7 +3,7 @@
   "followSystemTheme": true,
   "layout": {
     "minWidth": 900,
-    "mode": "vertical-mix",
+    "mode": "horizontal",
     "modeList": [
       { "value": "vertical", "label": "左侧菜单模式" },
       { "value": "vertical-mix", "label": "左侧菜单混合模式" },

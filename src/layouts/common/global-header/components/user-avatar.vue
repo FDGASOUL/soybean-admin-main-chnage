@@ -2,15 +2,11 @@
   <n-dropdown :options="options" @select="handleDropdown">
     <hover-container class="px-12px" :inverted="theme.header.inverted">
       <!-- <icon-local-avatar class="text-32px" /> -->
-      <n-avatar
-        round
-        :style="{
-          color: 'yellow',
-          backgroundColor: 'red'
-        }"
-      >
-        孟
-      </n-avatar>
+      <img
+        src="https://www.shenmegeng.cn/uploads/20220704/68665bc9c9bcd9d8e4ebceb90db2fc3a.jpg"
+        alt="User Avatar"
+        class="rounded-full h-8 w-12 mr-2"
+      />
       <span class="pl-8px text-16px font-medium">{{ auth.userInfo.userName }}</span>
     </hover-container>
   </n-dropdown>

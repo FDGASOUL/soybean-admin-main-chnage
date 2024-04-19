@@ -3,7 +3,7 @@ import type { LocaleMessages } from 'vue-i18n';
 const locale: LocaleMessages<I18nType.Schema> = {
   message: {
     system: {
-      title: '可视化探索性数据分析系统'
+      title: '校园消费行为可视化分析系统'
     },
     routes: {
       dashboard: {
