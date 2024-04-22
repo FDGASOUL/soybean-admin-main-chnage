@@ -20,6 +20,11 @@
         <div ref="pieRef" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+    <n-grid-item span="0:24 640:24 1024:24">
+      <n-card title="各学术地点消费金额条形图" :bordered="false" class="rounded-16px shadow-sm">
+        <div ref="lineRef2" class="w-full h-360px"></div>
+      </n-card>
+    </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="工作日学术场所消费时间图" :bordered="false" class="h-full rounded-16px shadow-sm">
         <div ref="lineRef" class="w-full h-600px"></div>
@@ -188,6 +193,104 @@ const lineOptions1 = ref<ECOption>({
 }) as Ref<ECOption>;
 const { domRef: lineRef1 } = useEcharts(lineOptions1);
 
+const lineOptions2 = ref<ECOption>({
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      // Use axis to trigger tooltip
+      type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+    }
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  legend: {},
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value',
+    name: '次数'
+  },
+  yAxis: {
+    type: 'category',
+    data: []
+  },
+  series: [
+    {
+      name: '零花(0~1)',
+      color: '#f4e23d',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      name: '小额消费(1~10)',
+      color: '#f4a23d',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      name: '中等消费(10~50)',
+      color: '#26deca',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      name: '大额消费(50~100)',
+      color: '#5da8ff',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      name: '超大额消费(100~)',
+      color: '#EE6666',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    }
+  ]
+}) as Ref<ECOption>;
+const { domRef: lineRef2 } = useEcharts(lineOptions2);
+
 defineOptions({ name: 'DashboardAnalysisTopCard' });
 
 async function getLearnData() {
@@ -202,6 +305,7 @@ async function getLearnData() {
     echarts(data);
     echarts1(data);
     echarts2(data);
+		echarts3(data);
   }
   endLoading();
 }
@@ -249,6 +353,15 @@ function echarts2(data) {
   message +=
     '<br>对比工作日，非工作日的整体消费次数明显下降，原因可能是非工作日学生在宿舍休息或外出游玩，极少访问学术场所。';
   tableData.message2 = message;
+}
+
+function echarts3(data) {
+  lineOptions2.value.yAxis.data = data.dept;
+  lineOptions2.value.series[0].data = data.zero;
+  lineOptions2.value.series[1].data = data.small;
+  lineOptions2.value.series[2].data = data.medium;
+  lineOptions2.value.series[3].data = data.big;
+  lineOptions2.value.series[4].data = data.superbig;
 }
 
 async function getDataName() {
