@@ -45,6 +45,16 @@ export const fetchMissData = async (name: string) => {
   return data;
 };
 
+export const fetchEatData = async (name: string) => {
+  const data = await request.post('/getEatData', { name });
+  return data;
+};
+
+export const fetchLearnData = async (name: string) => {
+  const data = await request.post('/getLearnData', { name });
+  return data;
+};
+
 export const fetchRepeatData = async (name: string) => {
   const data = await request.post('/getRepeatData', { name });
   return data;

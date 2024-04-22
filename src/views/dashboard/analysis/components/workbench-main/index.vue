@@ -35,14 +35,6 @@
         <div style="margin-left: 180px">
           <n-button type="info" @click="handleClick">确定</n-button>
         </div>
-        <!-- <n-upload multiple directory-dnd accept=".csv" :custom-request="customRequest" :max="1" ref="uploadRef">
-          <n-upload-dragger>
-            <n-text style="font-size: 16px"> 点击或者拖动文件到该区域来上传 </n-text>
-            <n-p depth="3" style="margin: 8px 0 0 0">
-              请不要上传敏感数据，如涉及政治军事数据，您上传的数据不会被用于其他用途
-            </n-p>
-          </n-upload-dragger>
-        </n-upload> -->
       </n-card>
     </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:8">
@@ -230,12 +222,12 @@ interface Shortcuts {
 }
 
 const shortcuts: Shortcuts[] = [
-  { id: 0, label: '数据分布', icon: 'mdi:chart-areaspline', iconColor: '#f56c6c' },
-  { id: 1, label: '关联关系', icon: 'mdi:family-tree', iconColor: '#8aca6b' },
-  { id: 2, label: '缺失情况', icon: 'mdi:desktop-mac-dashboard', iconColor: '#409eff' },
-  { id: 3, label: '贝叶斯网络结构', icon: 'fluent:app-store-24-filled', iconColor: '#19a2f1' },
-  { id: 4, label: '数据管理', icon: 'mdi:table-large', iconColor: '#fab251' },
-  { id: 5, label: '信息管理', icon: 'ic:outline-settings', iconColor: '#7238d1' }
+  // { id: 0, label: '数据分布', icon: 'mdi:chart-areaspline', iconColor: '#f56c6c' },
+  // { id: 1, label: '关联关系', icon: 'mdi:family-tree', iconColor: '#8aca6b' },
+  // { id: 2, label: '缺失情况', icon: 'mdi:desktop-mac-dashboard', iconColor: '#409eff' },
+  // { id: 3, label: '贝叶斯网络结构', icon: 'fluent:app-store-24-filled', iconColor: '#19a2f1' },
+  // { id: 4, label: '数据管理', icon: 'mdi:table-large', iconColor: '#fab251' },
+  // { id: 5, label: '信息管理', icon: 'ic:outline-settings', iconColor: '#7238d1' }
 ];
 function init() {
   getDataName();

@@ -153,6 +153,11 @@
       </n-card>
     </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:24">
+      <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <div v-html="tableData.message"></div>
+      </n-card>
+    </n-grid-item>
+    <n-grid-item span="0:24 640:24 1024:24">
       <n-card :bordered="false" class="h-full rounded-16px shadow-sm">
         <div v-show="kind1.i === 1" ref="barRef" class="w-full h-600px"></div>
         <div v-show="kind1.i === 2" ref="catBarref" class="w-full h-600px"></div>
@@ -221,9 +226,10 @@ const tableData = reactive({
   fangcha: 0,
   biaozhun: 0,
   piandu: 0,
-  fengdu: 0
+  fengdu: 0,
+  message: ''
 });
-const { loading, startLoading, endLoading } = useLoading(false);
+const { startLoading, endLoading } = useLoading(false);
 
 defineOptions({ name: 'DashboardAnalysisBottomPart' });
 
@@ -696,6 +702,7 @@ async function handleUpdateValue1() {
       tableData.biaozhun = data.x[12].toFixed(4);
       tableData.piandu = data.x[13].toFixed(4);
       tableData.fengdu = data.x[14].toFixed(4);
+      tableData.message = data.data_message;
       echars1(data);
     } else {
       catBaroption.value.xAxis.name = select;

@@ -95,7 +95,7 @@ const tableData = reactive({
   message: ''
 });
 
-const { loading, startLoading, endLoading } = useLoading(false);
+const { startLoading, endLoading } = useLoading(false);
 
 defineOptions({ name: 'DashboardAnalysisTopCard' });
 
