@@ -24,13 +24,13 @@ interface Props {
 
 function handleToTab(lable) {
   if (lable === '数据分布') {
-    routerPush({ name: routeName('document_vue') });
+    routerPush({ name: routeName('distribution_one') });
   } else if (lable === '关联关系') {
-    routerPush({ name: routeName('document_vite') });
-  } else if (lable === '缺失情况') {
-    routerPush({ name: routeName('document_naive') });
-  } else if (lable === '贝叶斯网络结构') {
-    routerPush({ name: routeName('document_project') });
+    routerPush({ name: routeName('association') });
+  } else if (lable === '消费特点分析') {
+    routerPush({ name: routeName('behavior_feature') });
+  } else if (lable === '消费画像') {
+    routerPush({ name: routeName('behavior_draw') });
   } else if (lable === '数据管理') {
     routerPush({ name: routeName('management_role') });
   } else {

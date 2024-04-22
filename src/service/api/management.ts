@@ -26,12 +26,6 @@ export const fetchUserList = async (power: string, all: string) => {
   return adapter(adapterOfFetchUserList, data);
 };
 
-/** 获取数据列表 */
-// export const fetchDataList = async (name: string) => {
-//   const data = await request.post<object>('/getDataList', { name });
-//   return adapter(adapterOfFetchDataList, data);
-// };
-
 export const fetchDataList = async (name: string) => {
   return request.post<object>('/getDataList', { name });
 };

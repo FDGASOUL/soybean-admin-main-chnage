@@ -22,9 +22,9 @@
         </n-card>
       </n-space>
     </n-grid-item>
-    <n-grid-item span="0:24 640:24 1024:8">
-      <n-card title="上传文件" :bordered="false" size="small" class="shadow-sm rounded-16px">
-        <div style="margin-left: 150px">
+    <n-grid-item span="0:24 640:24 1024:12">
+      <n-card title="上传文件" :bordered="false" class="shadow-sm rounded-16px" style="height: 400px">
+        <div style="margin-left: 350px">
           <n-upload accept=".csv" :custom-request="customRequest" :max="1" ref="uploadRef">
             <n-button>上传 .csv 文件</n-button>
           </n-upload>
@@ -32,26 +32,22 @@
         <div>
           <n-input v-model:value="model.dataname" placeholder="请输入数据集名称" />
         </div>
-        <div style="margin-left: 180px">
+        <div style="margin-left: 380px; margin-top: 100px">
           <n-button type="info" @click="handleClick">确定</n-button>
         </div>
       </n-card>
     </n-grid-item>
-    <n-grid-item span="0:24 640:24 1024:8">
-      <n-card title="下载文件" :bordered="false" size="small" class="shadow-sm rounded-16px">
-        <div style="margin-left: 150px">
-          <n-button type="info" @click="downlandData()"> 下载数据 </n-button>
-        </div>
-      </n-card>
-    </n-grid-item>
-    <n-grid-item span="0:24 640:24 1024:8">
-      <n-card title="请选择要下载数据集" :bordered="false" size="small" class="shadow-sm rounded-16px">
+    <n-grid-item span="0:24 640:24 1024:12">
+      <n-card title="请选择要下载数据集" :bordered="false" class="shadow-sm rounded-16px" style="height: 400px">
         <n-select
           v-model:value="valueSelect"
           :options="options_edit"
           :consistent-menu-width="false"
           @update:value="handleUpdateValue"
         />
+        <div style="margin-left: 400px; margin-top: 150px">
+          <n-button type="info" @click="downlandData()"> 下载数据 </n-button>
+        </div>
       </n-card>
     </n-grid-item>
   </n-grid>
@@ -222,12 +218,12 @@ interface Shortcuts {
 }
 
 const shortcuts: Shortcuts[] = [
-  // { id: 0, label: '数据分布', icon: 'mdi:chart-areaspline', iconColor: '#f56c6c' },
-  // { id: 1, label: '关联关系', icon: 'mdi:family-tree', iconColor: '#8aca6b' },
-  // { id: 2, label: '缺失情况', icon: 'mdi:desktop-mac-dashboard', iconColor: '#409eff' },
-  // { id: 3, label: '贝叶斯网络结构', icon: 'fluent:app-store-24-filled', iconColor: '#19a2f1' },
-  // { id: 4, label: '数据管理', icon: 'mdi:table-large', iconColor: '#fab251' },
-  // { id: 5, label: '信息管理', icon: 'ic:outline-settings', iconColor: '#7238d1' }
+  { id: 0, label: '数据分布', icon: 'mdi:chart-areaspline', iconColor: '#f56c6c' },
+  { id: 1, label: '关联关系', icon: 'mdi:family-tree', iconColor: '#8aca6b' },
+  { id: 2, label: '消费特点分析', icon: 'mdi:desktop-mac-dashboard', iconColor: '#409eff' },
+  { id: 3, label: '消费画像', icon: 'akar-icons:people-group', iconColor: '#19a2f1' },
+  { id: 4, label: '数据管理', icon: 'mdi:table-large', iconColor: '#fab251' },
+  { id: 5, label: '信息管理', icon: 'ic:outline-settings', iconColor: '#7238d1' }
 ];
 function init() {
   getDataName();
