@@ -74,16 +74,6 @@ export const fetchCorrSelect2 = async (select, name: string) => {
   return data;
 };
 
-export const fetchBysData = async (name: string) => {
-  const data = await request.post('/bayes', { name });
-  return data;
-};
-
-export const fetchBysSelect1 = async (select: string) => {
-  const data = await request.post('/bysSelect1', { select });
-  return data;
-};
-
 export const fetchUserData = async () => {
   const data = await request.post('/getUserData');
   return data;

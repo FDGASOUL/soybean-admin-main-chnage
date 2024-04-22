@@ -3,10 +3,6 @@
     <n-card title="已注册用户管理" :bordered="false" class="rounded-16px shadow-sm">
       <n-space class="pb-12px" justify="space-between">
         <n-space>
-          <!-- <n-button type="primary" @click="handleAddTable">
-            <icon-ic-round-plus class="mr-4px text-20px" />
-            新增
-          </n-button> -->
           <n-button
             v-model:value="checkedRowKeyRef"
             type="error"
@@ -27,7 +23,6 @@
             <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
             刷新
           </n-button>
-          <!-- <column-setting v-model:columns="columns" /> -->
         </n-space>
       </n-space>
       <n-data-table
