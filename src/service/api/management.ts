@@ -44,6 +44,11 @@ export const fetchEatData = async (name: string) => {
   return data;
 };
 
+export const fetchFeatureData = async (name: string) => {
+  const data = await request.post('/getFeatureData', { name });
+  return data;
+};
+
 export const fetchLearnData = async (name: string) => {
   const data = await request.post('/getLearnData', { name });
   return data;

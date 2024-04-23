@@ -13,7 +13,7 @@
     <n-grid-item span="0:24 640:24 1024:4">
       <n-card title="选择两列查看数据分布" :bordered="false" class="h-full rounded-16px shadow-sm">
         <n-select v-model:value="valueSelect2" multiple :options="options_edit2" :consistent-menu-width="false" />
-        <div style="margin-left: 55px; margin-top: 60px">
+        <div style="display: block; margin: auto; width: fit-content; margin-top: 50px">
           <n-button type="success" @click="handleUpdateValue2"> 确定 </n-button>
         </div>
       </n-card>

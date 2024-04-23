@@ -1,7 +1,10 @@
 <template>
+  <!-- 网格布局 -->
   <n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
+    <!-- 数据集选择卡片 -->
     <n-grid-item span="0:24 640:24 1024:5" style="height: 200px">
       <n-card title="数据集选择" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 下拉选择框 -->
         <n-select
           v-model:value="valueSelect"
           :options="options_edit"
@@ -10,68 +13,107 @@
         />
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:24">
       <n-card title="各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 早餐各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="早餐各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef1" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 午餐各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="午餐各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef2" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 晚餐各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="晚餐各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef3" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message1"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message2"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message3"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 各食堂消费金额条形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:24">
       <n-card title="各食堂消费金额条形图" :bordered="false" class="rounded-16px shadow-sm">
+        <!-- 条形图容器 -->
         <div ref="lineRef2" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 工作日食堂就餐时间图卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="工作日食堂就餐时间图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 折线图容器 -->
         <div ref="lineRef" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 非工作日食堂就餐时间图卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="非工作日食堂就餐时间图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 折线图容器 -->
         <div ref="lineRef1" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message4"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message5"></div>
       </n-card>
     </n-grid-item>
@@ -501,25 +543,28 @@ const { domRef: lineRef2 } = useEcharts(lineOptions2);
 defineOptions({ name: 'DashboardAnalysisTopCard' });
 
 async function getEatData() {
-  startLoading();
-  const name = valueSelect.value;
-  const { data } = await fetchEatData(name);
-  console.log(data.dept_column_exists);
-  if (data.dept_column_exists === false) {
+  startLoading(); // 开始加载动画
+  const name = valueSelect.value; // 获取选择的数据集名称
+  const { data } = await fetchEatData(name); // 从服务器获取数据
+  console.log(data.dept_column_exists); // 打印数据中是否存在部门列的信息
+  if (data.dept_column_exists === false) { // 如果数据中不存在部门列
+    // 显示错误消息并更新表格消息
     tableData.message = '此数据集非学生消费数据集，无法分析';
     window.$message?.error('此数据集非学生消费数据集，无法分析！');
-  } else {
+  } else { // 如果数据中存在部门列
+    // 调用不同的 echarts 函数分析数据并更新表格消息
     echarts(data);
     echarts1(data);
     echarts2(data);
     echarts3(data);
     echarts4(data);
     echarts5(data);
-		echarts6(data);
+    echarts6(data);
   }
-  endLoading();
+  endLoading(); // 结束加载动画
 }
 
+// 分析综合消费情况并更新消息
 function echarts(data) {
   pieOptions.value.series[0].data = data.data.map(item => {
     return {
@@ -534,6 +579,7 @@ function echarts(data) {
   }人`;
 }
 
+// 分析早餐消费情况并更新消息
 function echarts1(data) {
   pieOptions1.value.series[0].data = data.data1.map(item => {
     return {
@@ -548,6 +594,7 @@ function echarts1(data) {
   }人`;
 }
 
+// 分析午餐消费情况并更新消息
 function echarts2(data) {
   pieOptions2.value.series[0].data = data.data2.map(item => {
     return {
@@ -562,6 +609,7 @@ function echarts2(data) {
   }人`;
 }
 
+// 分析晚餐消费情况并更新消息
 function echarts3(data) {
   pieOptions3.value.series[0].data = data.data3.map(item => {
     return {
@@ -576,6 +624,7 @@ function echarts3(data) {
   }人`;
 }
 
+// 分析工作日食堂就餐时间情况并更新消息
 function echarts4(data) {
   lineOptions.value.series[0].data = data.weekday;
   const sortedData = [...data.weekday].sort((a, b) => b - a); // 对数组进行降序排序
@@ -596,6 +645,7 @@ function echarts4(data) {
   tableData.message4 = message;
 }
 
+// 分析非工作日食堂就餐时间情况并更新消息
 function echarts5(data) {
   lineOptions1.value.series[0].data = data.weekend;
   const sortedData = [...data.weekend].sort((a, b) => b - a); // 对数组进行降序排序
@@ -612,12 +662,14 @@ function echarts5(data) {
   message +=
     '<br>对比工作日，非工作日的整体消费次数明显下降且就餐时间更加分散，原因可能是非工作日学生由于直接在宿舍点外卖或者外出游玩就餐等原因导致前往食堂就餐的人数大幅减少。';
 
-  // 更新 tableData.message4
+  // 更新 tableData.message5
   tableData.message5 = message;
 }
 
+// 分析食堂消费金额情况并更新消息
 function echarts6(data) {
-  lineOptions2.value.yAxis.data = data.dept;
+  lineOptions2.value.yAxis.data = data.dept; // 更新 y 轴数据
+  // 更新各个系列的数据
   lineOptions2.value.series[0].data = data.zero;
   lineOptions2.value.series[1].data = data.small;
   lineOptions2.value.series[2].data = data.medium;
@@ -625,9 +677,11 @@ function echarts6(data) {
   lineOptions2.value.series[4].data = data.superbig;
 }
 
+// 从服务器获取数据集名称
 async function getDataName() {
-  startLoading();
-  const { data } = await fetchDataName();
+  startLoading(); // 开始加载动画
+  const { data } = await fetchDataName(); // 从服务器获取数据
+  // 更新下拉选择框的选项
   options_edit.value = data.map(item => {
     return {
       label: item,
@@ -636,10 +690,11 @@ async function getDataName() {
   });
 }
 
+// 处理数据集选择更新事件
 async function handleUpdateValue() {
-  startLoading();
-  getEatData();
-  endLoading();
+  startLoading(); // 开始加载动画
+  getEatData(); // 获取并分析数据
+  endLoading(); // 结束加载动画
 }
 
 function init() {

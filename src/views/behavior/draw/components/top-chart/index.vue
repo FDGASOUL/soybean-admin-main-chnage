@@ -1,7 +1,10 @@
 <template>
+  <!-- 网格布局 -->
   <n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
+    <!-- 数据集选择卡片 -->
     <n-grid-item span="0:24 640:24 1024:5" style="height: 200px">
       <n-card title="数据集选择" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 下拉选择框 -->
         <n-select
           v-model:value="valueSelect"
           :options="options_edit"
@@ -10,68 +13,107 @@
         />
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:24">
       <n-card title="各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 早餐各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="早餐各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef1" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 午餐各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="午餐各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef2" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 晚餐各食堂就餐人数扇形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="晚餐各食堂就餐人数扇形图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 扇形图容器 -->
         <div ref="pieRef3" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message1"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message2"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message3"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 各食堂消费金额条形图卡片 -->
     <n-grid-item span="0:24 640:24 1024:24">
       <n-card title="各食堂消费金额条形图" :bordered="false" class="rounded-16px shadow-sm">
+        <!-- 条形图容器 -->
         <div ref="lineRef2" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 工作日食堂就餐时间图卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="工作日食堂就餐时间图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 折线图容器 -->
         <div ref="lineRef" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 非工作日食堂就餐时间图卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="非工作日食堂就餐时间图" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 折线图容器 -->
         <div ref="lineRef1" class="w-full h-600px"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message4"></div>
       </n-card>
     </n-grid-item>
+
+    <!-- 数据分析卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="数据分析" :bordered="false" class="h-full rounded-16px shadow-sm">
+        <!-- 数据分析内容，使用 v-html 动态渲染 -->
         <div v-html="tableData.message5"></div>
       </n-card>
     </n-grid-item>

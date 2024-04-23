@@ -1,9 +1,13 @@
 <template>
+  <!-- 网格布局 -->
   <n-grid :item-responsive="true" :x-gap="16" :y-gap="16">
+    <!-- 技术栈卡片 -->
     <n-grid-item span="0:24 640:24 1024:16">
       <n-space :vertical="true" :size="16">
         <n-card title="项目主要技术栈" :bordered="false" size="small" class="shadow-sm rounded-16px">
+          <!-- 技术栈卡片网格布局 -->
           <n-grid :item-responsive="true" responsive="screen" cols="m:2 l:3" :x-gap="8" :y-gap="8">
+            <!-- 循环渲染技术栈卡片 -->
             <n-grid-item v-for="item in technology" :key="item.id">
               <technology-card v-bind="item" />
             </n-grid-item>
@@ -11,10 +15,13 @@
         </n-card>
       </n-space>
     </n-grid-item>
+    <!-- 快捷操作卡片 -->
     <n-grid-item span="0:24 640:24 1024:8">
       <n-space :vertical="true" :size="16">
         <n-card title="快捷操作" :bordered="false" size="small" class="shadow-sm rounded-16px">
+          <!-- 快捷操作卡片网格布局 -->
           <n-grid :item-responsive="true" responsive="screen" cols="m:2 l:3" :x-gap="8" :y-gap="8">
+            <!-- 循环渲染快捷操作卡片 -->
             <n-grid-item v-for="item in shortcuts" :key="item.id">
               <shortcuts-card v-bind="item" />
             </n-grid-item>
@@ -22,30 +29,37 @@
         </n-card>
       </n-space>
     </n-grid-item>
+    <!-- 上传文件卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="上传文件" :bordered="false" class="shadow-sm rounded-16px" style="height: 400px">
-        <div style="margin-left: 350px">
+        <!-- 上传文件操作 -->
+        <div style="display: block; margin: auto; width: fit-content">
           <n-upload accept=".csv" :custom-request="customRequest" :max="1" ref="uploadRef">
             <n-button>上传 .csv 文件</n-button>
           </n-upload>
         </div>
+        <!-- 数据集名称输入框 -->
         <div>
           <n-input v-model:value="model.dataname" placeholder="请输入数据集名称" />
         </div>
-        <div style="margin-left: 380px; margin-top: 100px">
+        <!-- 确定按钮 -->
+        <div style="display: block; margin: auto; width: fit-content; margin-top: 70px">
           <n-button type="info" @click="handleClick">确定</n-button>
         </div>
       </n-card>
     </n-grid-item>
+    <!-- 下载数据集卡片 -->
     <n-grid-item span="0:24 640:24 1024:12">
       <n-card title="请选择要下载数据集" :bordered="false" class="shadow-sm rounded-16px" style="height: 400px">
+        <!-- 下载数据集操作 -->
         <n-select
           v-model:value="valueSelect"
           :options="options_edit"
           :consistent-menu-width="false"
           @update:value="handleUpdateValue"
         />
-        <div style="margin-left: 400px; margin-top: 150px">
+        <!-- 下载按钮 -->
+        <div style="display: block; margin: auto; width: fit-content; margin-top: 100px">
           <n-button type="info" @click="downlandData()"> 下载数据 </n-button>
         </div>
       </n-card>
@@ -83,68 +97,80 @@ const formRef = ref<HTMLElement & FormInst>();
 const uploadRef = ref<UploadInst | null>(null);
 const show = ref(false);
 const showModal = ref(false);
+// 自定义上传文件请求方法
 const customRequest = async ({ file }) => {
-  formData = new FormData();
-  formData.append('data_file', file.file);
-  // Uplandsome(formData);
-  // uploadRef.value?.clear();
-  // window.$message?.info(`上传成功`);
+  formData = new FormData(); // 每次上传前重置 FormData
+  formData.append('data_file', file.file); // 将文件数据添加到 FormData 中
 };
 
+// 点击确定按钮事件处理函数
 async function handleClick() {
+  // 表单验证
   await formRef.value?.validate();
+  // 提交上传
   await uploadRef.value?.submit();
+  // 将数据集名称添加到 FormData 中
   formData.append('data_name', model.dataname);
+  // 清空数据集名称输入框
   model.dataname = '';
+  // 如果文件已经上传
   if (formData.get('data_file') !== null) {
+    // 显示上传进度
     show.value = true;
-    await Uplandsome(formData);
+    // 调用上传函数，并传入 FormData
+    await Uplandsome(formData); // 假设 Uplandsome 是上传函数
+    // 清空上传组件中的文件
     uploadRef.value?.clear();
+    // 提示上传成功
     window.$message?.info(`上传成功`);
+    // 隐藏上传进度
     show.value = false;
   } else {
+    // 提示先上传文件
     window.$message?.error('请先上传文件');
   }
 }
 
+// 下载数据集函数
 const downlandData = () => {
   const xhr = new XMLHttpRequest();
   const name = valueSelect.value;
   if (name === '') {
+    // 如果未选择要下载的数据集，则提示
     window.$message?.error('请在右侧指定要下载的数据集！');
   } else {
+    // 构建下载请求
     xhr.open('POST', `http://localhost:5000/downland?name=${name}`, true);
-  xhr.responseType = 'blob';
-  xhr.setRequestHeader('Content-Type', 'application/json');
-
-  xhr.setRequestHeader('Authorization', `Bearer ${localStg.get('token')}`);
-  // eslint-disable-next-line func-names
-  xhr.onload = function () {
-    if (this.status === 200) {
-      const blob = this.response;
-        const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      // eslint-disable-next-line func-names
-      reader.onload = function (e) {
-          const a = document.createElement('a');
-        a.download = 'data.csv';
-        if (typeof e.target.result === 'string') {
-          a.href = e.target.result;
-        }
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      };
-    }
-  };
-  xhr.send(JSON.stringify({ data_name: 'left_test' }));
-	}
-
+    xhr.responseType = 'blob'; // 设置响应类型为 Blob
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${localStg.get('token')}`); // 添加身份验证信息
+    // 监听请求完成事件
+    xhr.onload = function () {
+      if (this.status === 200) {
+        const blob = this.response; // 获取 Blob 数据
+        const reader = new FileReader(); // 创建文件读取器
+        reader.readAsDataURL(blob); // 读取 Blob 数据为 DataURL
+        // 监听读取完成事件
+        reader.onload = function (e) {
+          const a = document.createElement('a'); // 创建 a 标签
+          a.download = 'data.csv'; // 设置下载文件名
+          if (typeof e.target.result === 'string') {
+            a.href = e.target.result; // 设置下载链接
+          }
+          document.body.appendChild(a); // 将 a 标签添加到页面中
+          a.click(); // 模拟点击下载
+          document.body.removeChild(a); // 下载完成后移除 a 标签
+        };
+      }
+    };
+    xhr.send(JSON.stringify({ data_name: 'left_test' })); // 发送请求
+  }
 };
 
+// 获取数据集名称列表
 async function getDataName() {
-  startLoading();
-  const { data } = await fetchDataName();
+  startLoading(); // 开始加载
+  const { data } = await fetchDataName(); // 获取数据集名称列表
   options_edit.value = data.map(item => {
     return {
       label: item,
