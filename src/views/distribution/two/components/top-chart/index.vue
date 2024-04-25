@@ -593,7 +593,6 @@ async function handleUpdateValue2() {
 function echars2(data) {
   const sandData = data.sandData;
   Scatteroption.value.series[0].data = sandData;
-	// Boxoption.value.dataset[0].source = sandData;
 }
 
 function echars3(data) {

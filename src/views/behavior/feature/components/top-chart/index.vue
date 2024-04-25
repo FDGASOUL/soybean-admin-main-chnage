@@ -36,6 +36,21 @@
         <div v-html="tableData.message"></div>
       </n-card>
     </n-grid-item>
+    <n-grid-item span="0:24 640:24 1024:24">
+      <n-card :bordered="false" class="h-full rounded-16px shadow-sm">
+        <div ref="QiantaoBar1" class="w-full h-600px"></div>
+      </n-card>
+    </n-grid-item>
+    <n-grid-item span="0:24 640:24 1024:24">
+      <n-card :bordered="false" class="h-full rounded-16px shadow-sm">
+        <div ref="QiantaoBar2" class="w-full h-600px"></div>
+      </n-card>
+    </n-grid-item>
+    <n-grid-item span="0:24 640:24 1024:24">
+      <n-card :bordered="false" class="h-full rounded-16px shadow-sm">
+        <div ref="QiantaoBar3" class="w-full h-600px"></div>
+      </n-card>
+    </n-grid-item>
   </n-grid>
 </template>
 
@@ -116,6 +131,244 @@ const pieOptions = ref<ECOption>({
 }) as Ref<ECOption>;
 const { domRef: pieRef } = useEcharts(pieOptions);
 
+app.config = {
+  rotate: 90,
+  align: 'left',
+  verticalAlign: 'middle',
+  position: 'insideBottom',
+  distance: 15
+};
+
+type BarLabelOption = NonNullable<echarts.BarSeriesOption['label']>;
+const labelOption: BarLabelOption = {
+  show: true,
+  position: app.config.position as BarLabelOption['position'],
+  distance: app.config.distance as BarLabelOption['distance'],
+  align: app.config.align as BarLabelOption['align'],
+  verticalAlign: app.config.verticalAlign as BarLabelOption['verticalAlign'],
+  rotate: app.config.rotate as BarLabelOption['rotate'],
+  formatter: '{c}  {name|{a}}',
+  fontSize: 16,
+  rich: {
+    name: {}
+  }
+};
+const QiantaoBaroption1 = ref<ECOption>({
+  title: {
+    text: '消费金额受不同专业和性别影响可视化',
+    left: 'left'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {
+    data: ['男', '女']
+  },
+  toolbox: {
+    show: true,
+    orient: 'vertical',
+    left: 'right',
+    top: 'center',
+    feature: {
+      mark: { show: true },
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar', 'stack'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  xAxis: [
+    {
+      type: 'category',
+      axisTick: { show: false },
+      data: []
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: '金额'
+    }
+  ],
+  dataZoom: [
+    {
+      type: 'slider',
+      show: true,
+      start: 0,
+      end: 100
+    }
+  ],
+  series: [
+    {
+      name: '男',
+      type: 'bar',
+      barGap: 0,
+      label: labelOption,
+      emphasis: {
+        focus: 'series'
+      },
+      data: [320, 332, 301, 334, 390]
+    },
+    {
+      name: '女',
+      type: 'bar',
+      label: labelOption,
+      emphasis: {
+        focus: 'series'
+      },
+      data: [220, 182, 191, 234, 290]
+    }
+  ]
+}) as Ref<ECOption>;
+const { domRef: QiantaoBar1 } = useEcharts(QiantaoBaroption1);
+
+const QiantaoBaroption2 = ref<ECOption>({
+  title: {
+    text: '消费次数受不同专业和性别影响可视化',
+    left: 'left'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {
+    data: ['男', '女']
+  },
+  toolbox: {
+    show: true,
+    orient: 'vertical',
+    left: 'right',
+    top: 'center',
+    feature: {
+      mark: { show: true },
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar', 'stack'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  xAxis: [
+    {
+      type: 'category',
+      axisTick: { show: false },
+      data: []
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: '次数'
+    }
+  ],
+  dataZoom: [
+    {
+      type: 'slider',
+      show: true,
+      start: 0,
+      end: 100
+    }
+  ],
+  series: [
+    {
+      name: '男',
+      type: 'bar',
+      barGap: 0,
+      label: labelOption,
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      name: '女',
+      type: 'bar',
+      label: labelOption,
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    }
+  ]
+}) as Ref<ECOption>;
+const { domRef: QiantaoBar2 } = useEcharts(QiantaoBaroption2);
+
+const QiantaoBaroption3 = ref<ECOption>({
+  title: {
+    text: '校园卡余额受不同专业和性别影响可视化',
+    left: 'left'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {
+    data: ['男', '女']
+  },
+  toolbox: {
+    show: true,
+    orient: 'vertical',
+    left: 'right',
+    top: 'center',
+    feature: {
+      mark: { show: true },
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar', 'stack'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  xAxis: [
+    {
+      type: 'category',
+      axisTick: { show: false },
+      data: []
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: '余额'
+    }
+  ],
+  dataZoom: [
+    {
+      type: 'slider',
+      show: true,
+      start: 0,
+      end: 100
+    }
+  ],
+  series: [
+    {
+      name: '男',
+      type: 'bar',
+      barGap: 0,
+      label: labelOption,
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    },
+    {
+      name: '女',
+      type: 'bar',
+      label: labelOption,
+      emphasis: {
+        focus: 'series'
+      },
+      data: []
+    }
+  ]
+}) as Ref<ECOption>;
+const { domRef: QiantaoBar3 } = useEcharts(QiantaoBaroption3);
+
 defineOptions({ name: 'DashboardAnalysisTopCard' });
 
 async function getFeatureData() {
@@ -129,6 +382,9 @@ async function getFeatureData() {
     tableData.per_times = data.per_times;
     tableData.per_money = data.per_money;
     echarts(data);
+    echars2(data);
+    echars3(data);
+    echars4(data);
   }
   endLoading();
 }
@@ -147,6 +403,24 @@ function echarts(data) {
   }元，<br>学生消费占比最小的是：${data.data[data.data.length - 1].name}，消费金额仅有：${
     data.data[data.data.length - 1].value
   }元。`;
+}
+
+function echars2(data) {
+  QiantaoBaroption1.value.xAxis[0].data = data.header;
+  QiantaoBaroption1.value.series[0].data = data.man1;
+  QiantaoBaroption1.value.series[1].data = data.woman1;
+}
+
+function echars3(data) {
+  QiantaoBaroption2.value.xAxis[0].data = data.header;
+  QiantaoBaroption2.value.series[0].data = data.man2;
+  QiantaoBaroption2.value.series[1].data = data.woman2;
+}
+
+function echars4(data) {
+  QiantaoBaroption3.value.xAxis[0].data = data.header;
+  QiantaoBaroption3.value.series[0].data = data.man3;
+  QiantaoBaroption3.value.series[1].data = data.woman3;
 }
 
 async function getDataName() {
